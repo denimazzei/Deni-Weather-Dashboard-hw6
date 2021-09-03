@@ -5,44 +5,85 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="Assets/CSS/stylesheet.css">
     <title>Weather Dashboard</title>
 </head>
-<body class="flex-column min-100-vh">
-    <header class="hero">
-        <h1 class="app-title">
-            <i class="fad fa-thunderstorm-sun"></i>Weather Dashboard
-        </h1>
-    </header>
-    <main class="flex row justify-space-between">
-        <div class="col-12 col-md-4">
-            <div class="card">
-                <h3 class="card-header text-uppercase">Search For A City:</h3>
-                <form id="user-form" class="card-body">
-                    <label class="form-label" for="enter-city">City Name</label>
-                    <input name="enter-city" id="enter-city" type="text" autofocus="true" class="form-input">
-                    <button type="submit" class="btn">Get Weather</button>
-                </form>
-            </div>
-            <div class="card">
-                <h3 class="card-header text-uppercase">Search by Popular City</h3>
-                <div id="city-buttons" class="card-body">
-                    <button data-city="Austin" class="btn">Austin</button>
-                    <button data-city="Chicago" class="btn">Chicago</button>
-                    <button data-city="New York" class="btn">New York</button>
-                    <button data-city="Los Angeles" class="btn">Los Angeles</button>
-                    <button data-city="Phoenix" class="btn">Phoenix</button>
+<body>
+    <div class="jumbotron container-fluid mt-2 text-center p-2" style="background-color: #012ab1; color: white;">
+        <h1>Weather Dashboard</h1>
+    </div>
+    <div class="container">
+        <!--City Search Input & Capture-->
+        <div class="row">
+            <div class="col-sm-4 bg-light">
+                <h4 class="pt-1"><strong>Search for a City:</strong></h4>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="city-search" aria-label="City Search" aria-describedby="search-button">
+                    <div class="input-group-append">
+                        <button class="btn bg-primary text-light" id="search-button"><i class="fa fa search"></i></button>
+                    </div>
                 </div>
+
+                <!--Search History-->
+                <button class="btn btn-primary" type="button" id="clear-history">Clear History</button>
+                <ul class="list-group"></ul>
+            </div>
+            <div class="col-sm-8">
+                <div class="row ml-2 border border-dark rounded">
+                    <div class="col-sm-12" id="current-weather">
+                        <h3 class="city-name mb-1 mt-2 bolder" id="current-city"></h3>
+                        <p>Temperature: <span class="current" id="temperature"></span></p>
+                        <p>Humidity: <span class="current" id="humidity"></span></p>
+                        <p>Wind Speed: <span class="current" id="wind-speed"></span></p>
+                        <p>UV Index: <span class="current bg-danger rounded py-2 px-3 text-white" id="uv-index"></span></p>
+                    </div>
+                </div>
+
+                <!--Future Forecast-->
+                <div class="col-sm-12" id="future-forecast">
+                    <h3>5-Day Forecast: </h3>
+                    <div class="row text-light">
+                        <div class="col-sm-2 bg-primary forecast text-whte ml-2 mb-3 p-2 mt-2 rounded">
+                            <p id="fDateO"></p>
+                            <p id="fImg0"></p>
+                            <p>Temp: <span id="fTemp0"></span></p>
+                            <p>Humidity: <span id="fHumidity0"></span></p>
+                        </div>
+                        <div class="col-sm-2 bg-primary forecast text-whte ml-2 mb-3 p-2 mt-2 rounded">
+                            <p id="fDate1"></p>
+                            <p id="fImg1"></p>
+                            <p>Temp: <span id="fTemp1"></span></p>
+                            <p>Humidity: <span id="fHumidity1"></span></p>
+                        </div>
+                        <div class="col-sm-2 bg-primary forecast text-whte ml-2 mb-3 p-2 mt-2 rounded">
+                            <p id="fDate2"></p>
+                            <p id="fImg2"></p>
+                            <p>Temp: <span id="fTemp2"></span></p>
+                            <p>Humidity: <span id="fHumidity2"></span></p>
+                        </div>
+                        <div class="col-sm-2 bg-primary forecast text-whte ml-2 mb-3 p-2 mt-2 rounded">
+                            <p id="fDate3"></p>
+                            <p id="fImg3"></p>
+                            <p>Temp: <span id="fTemp3"></span></p>
+                            <p>Humidity: <span id="fHumidity3"></span></p>
+                        </div>
+                        <div class="col-sm-2 bg-primary forecast text-whte ml-2 mb-3 p-2 mt-2 rounded">
+                            <p id="fDate4"></p>
+                            <p id="fImg4"></p>
+                            <p>Temp: <span id="fTemp4"></span></p>
+                            <p>Humidity: <span id="fHumidity4"></span></p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <div class="col-12 col-md-8">
-            <h2 class="results">Weather Results For: 
-                <span id="city-weather-search"></span>
-            </h2>
-            <div id="weather-container" class="list-group"></div>
-        </div>
-    </main>
+    </div>
+   
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="Assets/JavaScript/javascript.js"></script>
 
     
